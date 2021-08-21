@@ -24,6 +24,7 @@ generateBtn.addEventListener("click", writePassword);
 
 // Start Function
 function generatePassword(){
+
   var result = "";
 
   var length = prompt("How many characters? Choose a number between 8 and 128.");
@@ -41,29 +42,65 @@ function generatePassword(){
   var hasNumbers = confirm("Include numbers?");
   var hasSpecial = confirm("Include special characters?");
 
-  if(!hasUpper&&!hasLower&&!hasNumbers&&!hasSpecial){
+  if(!hasUpper && !hasLower && !hasNumbers && !hasSpecial){
     alert("You must choose a character type!");
     return generatePassword()
   }
-
-  if(hasUpper){
-    userChoices += upper
-  }
-  if(hasLower){
-    userChoices += lower
+  // 4 true options
+  else if(hasUpper && hasLower && hasNumbers & hasSpecial){
+    userChoices = upper.concat(lower, numbers, special);
   }
 
-  if(hasNumbers) {
-    userChoices += numbers
+  // 3 true options
+  else if(hasUpper && hasLower && hasNumbers){
+    userChoices = upper.concat(lower, numbers);
+  }
+  else if(hasUpper && hasLower && hasSpecial){
+    userChoices = upper.concat(lower, special);
+  }
+  else if (hasUpper && hasNumbers && hasSpecial){
+    userChoices = upper.concat(numbers, special);
+  }
+  else if(hasLower && hasNumbers && hasSpecial){
+    userChoices = lower.concat(numbers, special);
   }
 
-  if(hasSpecial) {
-    userChoices += special
+  // 2 true options
+  else if(hasUpper && hasLower){
+    userChoices = upper.concat(lower);
+  }
+  else if(hasUpper && hasNumbers){
+    userChoices = upper.concat(numbers);
+  }
+  else if(hasUpper && hasSpecial){
+    userChoices = upper.concat(special);
+  }
+  else if(hasLower && hasNumbers){
+    userChoices = lower.concat(numbers);
+  }
+  else if(hasLower && hasSpecial){
+    userChoices = lower.concat(special);
+  }
+  else if(hasNumbers && hasSpecial){
+    userChoices = numbers.concat(special);
+  }
+  
+  // 1 true option
+  else if(hasUpper){
+    userChoices = upper;
+  }
+  else if(hasLower){
+    userChoices = lower;
+  }
+  else if(hasNumbers){
+    userChoices = numbers;
+  }
+  else if(hasSpecial){
+    userChoices = special;
   }
 
 for (var i = 0; i < length; i++) {
   result += userChoices.charAt(Math.floor(Math.random() * userChoices.length));
 }
 return result;
-
 }
